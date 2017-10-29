@@ -105,6 +105,20 @@ return u.userId as Node, inDegree
 
 5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
+```
+MATCH (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA]->()
+WHERE NOT ()-[:INFECTA]->(root) 
+RETURN count(root) > 0 as esRoot
+```
+
+```
+MATCH (user:Usuario)
+WITH count(distinct(user)) as total
+MATCH (root:Usuario)-[:INFECTA]->()
+WHERE NOT ()-[:INFECTA]->(root) 
+RETURN count(distinct(root))*100/total as proporcion
+```
+
 6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
