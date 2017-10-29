@@ -84,7 +84,12 @@ order by degree;
 
 2. Genere el sub-grafo de usuarios que consumen las mismas noticias.
 
-3. ¿Existen usuarios de Twitter que han estado en contacto con m ́as del 20 % del lote de noticias?
+```
+MATCH (n:Noticia)-[:IMPACTA]->(u:Usuario)
+RETURN n as Noticia, collect(u) as Usuarios, count(u) as CantUsuarios
+```
+
+3. ¿Existen usuarios de Twitter que han estado en contacto con más del 20 % del lote de noticias?
 
 ```
 match(u:Usuario)
@@ -96,11 +101,11 @@ where inDegree >= 0.2*news
 return u.userId as Node, inDegree
 ```
 
-4. ¿Cómo es la distribución de los grados de entrada y salida de los nodos? Presente la informaci ́on en un histograma.
+4. ¿Cómo es la distribución de los grados de entrada y salida de los nodos? Presente la información en un histograma.
 
-5. Llamaremos root-influencers a los nodos ra ́ıces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
+5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
-6. Calcule el grado de la infección para un root-influencer dado. El grado de infecci ́on est ́a dado por el camino más largo que se puede alcanzar desde un root-influencer.
+6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
 
