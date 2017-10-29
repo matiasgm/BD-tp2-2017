@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+# BD-tp2-2017
+## Conversión de datos .json a .csv
+jq -r '.edges[] | [.canonical_url, .date_published, .domain, .from_user_id, .from_user_screen_name, .id,.is_mention, .site_type,.title, .to_user_id, .to_user_screen_name, .tweet_created_at, .tweet_id, .tweet_type, .url_id | tostring]  | @csv ' noticias.json
+=======
 # Impacto de noticias falsas en redes sociales
 (fake news' impact in social media)
 
@@ -84,12 +89,7 @@ order by degree;
 
 2. Genere el sub-grafo de usuarios que consumen las mismas noticias.
 
-```
-MATCH (n:Noticia)-[:IMPACTA]->(u:Usuario)
-RETURN n as Noticia, collect(u) as Usuarios, count(u) as CantUsuarios
-```
-
-3. ¿Existen usuarios de Twitter que han estado en contacto con más del 20 % del lote de noticias?
+3. ¿Existen usuarios de Twitter que han estado en contacto con m ́as del 20 % del lote de noticias?
 
 ```
 match(u:Usuario)
@@ -101,25 +101,11 @@ where inDegree >= 0.2*news
 return u.userId as Node, inDegree
 ```
 
-4. ¿Cómo es la distribución de los grados de entrada y salida de los nodos? Presente la información en un histograma.
+4. ¿Cómo es la distribución de los grados de entrada y salida de los nodos? Presente la informaci ́on en un histograma.
 
-5. Llamaremos root-influencers a los nodos raíces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
+5. Llamaremos root-influencers a los nodos ra ́ıces del grafo de infección. Escriba una consulta que dado un nodo de usuario en el grafo de infección diga si es root-influencer o no. ¿Qué proporción hay de root-influencers? Muestre la información apropiadamente.
 
-```
-MATCH (root:Usuario {screenName: "beforeitsnews"})-[:INFECTA]->()
-WHERE NOT ()-[:INFECTA]->(root) 
-RETURN count(root) > 0 as esRoot
-```
-
-```
-MATCH (user:Usuario)
-WITH count(distinct(user)) as total
-MATCH (root:Usuario)-[:INFECTA]->()
-WHERE NOT ()-[:INFECTA]->(root) 
-RETURN count(distinct(root))*100/total as proporcion
-```
-
-6. Calcule el grado de la infección para un root-influencer dado. El grado de infección está dado por el camino más largo que se puede alcanzar desde un root-influencer.
+6. Calcule el grado de la infección para un root-influencer dado. El grado de infecci ́on est ́a dado por el camino más largo que se puede alcanzar desde un root-influencer.
 
 7. Pode el grafo quitando todos los root-influencers y muestre gráficamente como queda el grafo resultante. Si la información es muy grande, recorte apropiadamente.
 
@@ -127,3 +113,4 @@ RETURN count(distinct(root))*100/total as proporcion
 
 ## Conclusión
 
+>>>>>>> 2f071feef41407c73ad514291b006486d7fdd2ec
